@@ -19,7 +19,6 @@ public class ClientController {
 	
 	@PostMapping
 	ClientDTO save(@RequestBody ClientDTO client) {
-		System.out.println(client);
 		return clientService.save(client);
 	}
 }
