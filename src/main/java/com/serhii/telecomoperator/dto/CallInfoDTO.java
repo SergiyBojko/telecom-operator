@@ -2,6 +2,8 @@ package com.serhii.telecomoperator.dto;
 
 import java.time.ZonedDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.serhii.telecomoperator.model.CallInfo;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +19,8 @@ public class CallInfoDTO {
 	private long clientId;
 	private String callersPhone;
 	private String recipientsPhone;
+	
+	@JsonFormat(shape=Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ssX")
 	private ZonedDateTime callTime;
 	private long callDurationMills;
 	private String city;
