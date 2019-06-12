@@ -35,5 +35,5 @@ Creates new call information, it accepts following JSON request
 #### GET api/callinfo/perCity
 Provides information on a number of calls per each city.
 
-#### POST api/callinfo/longest?client_id=id&start=yyyy-MM-ddTHH:mm:ssX&end=yyyy-MM-ddTHH:mm:ssX
+#### GET api/callinfo/longest?client_id=id&start=yyyy-MM-ddTHH:mm:ssX&end=yyyy-MM-ddTHH:mm:ssX
 Provides information about the longest call for defined client id and specified date range.
