@@ -40,8 +40,8 @@ public class Client {
 	@Column(name="phone")
 	private List<String> phones;
 	
-	public enum Gender {
-		MALE, FEMALE
+	public Client (long id) {
+		this.id = id;
 	}
 	
 	public Client (ClientDTO client) {
@@ -51,4 +51,9 @@ public class Client {
 		gender = Gender.valueOf(client.getGender());
 		phones = client.getPhones();
 	}
+	
+	public enum Gender {
+		MALE, FEMALE
+	}
+
 }

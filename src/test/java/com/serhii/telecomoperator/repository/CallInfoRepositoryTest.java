@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.serhii.telecomoperator.dto.CallInfoDTO;
 import com.serhii.telecomoperator.dto.CityCallStatisticsDTO;
 import com.serhii.telecomoperator.model.CallInfo;
+import com.serhii.telecomoperator.model.Client;
+import com.serhii.telecomoperator.model.Client.Gender;
 
 @DirtiesContext
 @RunWith(SpringRunner.class)
@@ -32,14 +35,22 @@ public class CallInfoRepositoryTest {
 	@Autowired
 	private CallInfoRepo callInfoRepo;
 	
+	@Autowired
+	private ClientRepo clientRepo;
+	
 	@Before
 	public void setup() {
 		if (isSetupDone) {
 			return;
 		}
-		ci1 = new CallInfo(0, 1, "1111", "2222", ZonedDateTime.now(), 10000, "Kyiv");
-		ci2 = new CallInfo(0, 1, "1111", "3333", ZonedDateTime.now(), 20000, "Kyiv");
-		ci3 = new CallInfo(0, 2, "2222", "1111", ZonedDateTime.now(), 10000, "Lviv");
+		Client c1 = new Client(1L, "Ann", LocalDate.now(), Gender.FEMALE, List.of("123"));
+		Client c2 = new Client(2L, "Bob", LocalDate.now(), Gender.MALE, List.of("456"));
+		c1 = clientRepo.save(c1);
+		c2 = clientRepo.save(c2);
+		
+		ci1 = new CallInfo(0, c1, "1111", "2222", ZonedDateTime.now(), 10000, "Kyiv");
+		ci2 = new CallInfo(0, c1, "1111", "3333", ZonedDateTime.now(), 20000, "Kyiv");
+		ci3 = new CallInfo(0, c2, "2222", "1111", ZonedDateTime.now(), 10000, "Lviv");
 		ci1 = callInfoRepo.save(ci1);
 		ci2 = callInfoRepo.save(ci2);
 		ci3 = callInfoRepo.save(ci3);
@@ -50,11 +61,12 @@ public class CallInfoRepositoryTest {
 	public void shouldReturnLongestCallForSpecifiedClientAndDateRange() {
 		CallInfoDTO actual = callInfoRepo.findTopByClientIdAndCallTimeBetweenOrderByCallDurationMillsDesc(
 				1, 
-				ZonedDateTime.now().minusHours(1), 
-				ZonedDateTime.now().plusHours(1));
+				ZonedDateTime.now().minusDays(1), 
+				ZonedDateTime.now().plusDays(1));
 		
 		assertNotNull(actual);
 		assertEquals(ci2.getId(), actual.getId());
+		
 	}
 	
 	@Test

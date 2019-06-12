@@ -27,7 +27,7 @@ public class CallInfoDTO {
 	
 	public CallInfoDTO(CallInfo callInfo) {
 		id = callInfo.getId();
-		clientId = callInfo.getClientId();
+		clientId = callInfo.getClient().getId();
 		callersPhone = callInfo.getCallersPhone();
 		recipientsPhone = callInfo.getRecipientsPhone();
 		callTime = callInfo.getCallTime();
