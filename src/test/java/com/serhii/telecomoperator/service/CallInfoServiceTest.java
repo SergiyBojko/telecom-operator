@@ -38,8 +38,9 @@ public class CallInfoServiceTest {
 	
 	@Before
 	public void setup() {
-		callInfoDTO = new CallInfoDTO(10, 1, "1111", "2222", ZonedDateTime.now(), 10000, "Kyiv");
-		callInfo = new CallInfo(10, 1, "1111", "2222", ZonedDateTime.now(), 10000, "Kyiv"); 
+		ZonedDateTime now = ZonedDateTime.now();
+		callInfoDTO = new CallInfoDTO(10, 1, "1111", "2222", now, 10000, "Kyiv");
+		callInfo = new CallInfo(10, 1, "1111", "2222", now, 10000, "Kyiv"); 
 		cityStats = new ArrayList<CityCallStatisticsDTO>();
 		cityStats.add(new CityCallStatisticsDTO("Kyiv", 150));
 		
